@@ -236,6 +236,7 @@
 </div>
 
 <script>
+    //preview primary image
     function previewPrimaryImage(input) {
         const previewImg = document.getElementById('primary_img');
         const previewText = document.getElementById('primary_text');
@@ -250,6 +251,7 @@
         }
     }
 
+    //preview gallery images
     function previewGalleryImages(input) {
         const container = document.getElementById('gallery_preview_container');
         container.innerHTML = '';
@@ -270,6 +272,7 @@
         }
     }
 
+    //load subcategories based on selected category
     function loadSubcategories(categoryId, preselectedId = null) {
         const subSelect = document.getElementById('subcategory_id');
         const hint = document.getElementById('subcategory_hint');

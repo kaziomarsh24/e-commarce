@@ -16,6 +16,11 @@ class Subcategory extends Model
     use HasFactory, SoftDeletes;
     use AutoClearsCache; //clear cache automatically
 
+    /**
+     * Parent relations to touch/invalidate when this subcategory changes.
+     */
+    protected array $cacheParents = ['category'];
+
     protected $casts = [
         'is_active' => 'boolean',
     ];

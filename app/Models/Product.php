@@ -27,6 +27,11 @@ class Product extends Model
 {
     use HasFactory, HasUploadPurge, SoftDeletes;
     use AutoClearsCache; //clear cache automatically
+
+    /**
+     * Parent relations to touch/invalidate when this product changes.
+     */
+    protected array $cacheParents = ['category', 'subcategory'];
     protected $casts = [
         'gallery_images' => 'array',
         'old_price' => 'decimal:2',

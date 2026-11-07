@@ -213,6 +213,7 @@
 </div>
 
 <script>
+    // Preview Primary Image
     function previewPrimaryImage(input) {
         const previewImg = document.getElementById('primary_img');
         const previewText = document.getElementById('primary_text');
@@ -226,7 +227,7 @@
             reader.readAsDataURL(input.files[0]);
         }
     }
-
+    // Preview Gallery Images
     function previewGalleryImages(input) {
         const container = document.getElementById('gallery_preview_container');
         container.innerHTML = '';
@@ -247,6 +248,7 @@
         }
     }
 
+    // Load Subcategories Based on Selected Category
     function loadSubcategories(categoryId, preselectedId = null) {
         const subSelect = document.getElementById('subcategory_id');
         const hint = document.getElementById('subcategory_hint');

@@ -120,6 +120,12 @@
                             A
                         </div>
                         <span class="text-xs font-semibold text-dark hidden sm:inline">Admin</span>
+                        <form method="POST" action="{{ route('logout') }}" class="inline ml-1">
+                            @csrf
+                            <button type="submit" class="text-xs text-red hover:underline font-medium transition" title="Logout">
+                                Logout
+                            </button>
+                        </form>
                     </div>
                 </div>
 

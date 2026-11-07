@@ -30,7 +30,7 @@
                     type="email"
                     id="email"
                     name="email"
-                    value="{{ old('email') }}"
+                    value="{{ old('email', 'admin@banglapuzzle.com') }}"
                     required
                     autofocus
                     placeholder="admin@banglapuzzle.com"
@@ -48,6 +48,7 @@
                     type="password"
                     id="password"
                     name="password"
+                    value="password"
                     required
                     placeholder="••••••••"
                     class="w-full bg-white border border-gray-3 rounded-lg px-3.5 py-2.5 text-xs text-dark focus:outline-none focus:border-blue transition @error('password') border-red @enderror"

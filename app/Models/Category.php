@@ -8,12 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
+use KaziOmar\AtomicCache\Traits\AutoClearsCache;
 use KaziOmar\SmartUpload\Traits\HasUploadPurge;
 
 #[Fillable(['name', 'slug', 'image', 'description', 'is_active'])]
 class Category extends Model
 {
-    use HasFactory, SoftDeletes, HasUploadPurge;
+    use HasFactory, SoftDeletes, HasUploadPurge, AutoClearsCache;
 
     protected $casts = [
         'is_active' => 'boolean',

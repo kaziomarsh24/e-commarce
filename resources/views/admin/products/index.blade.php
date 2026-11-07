@@ -9,7 +9,7 @@
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
             <h1 class="text-2xl font-bold text-dark">Products</h1>
-            <p class="text-xs text-dark-4 mt-1">Manage catalog products, pricing, descriptions, categories, and images.</p>
+            <p class="text-xs text-dark-4 mt-1">Manage catalog products.</p>
         </div>
         <a href="{{ route('admin.products.create') }}"
            class="px-4 py-2 rounded-md bg-blue text-white font-medium text-xs hover:bg-blue-dark transition flex items-center gap-2 self-start sm:self-auto shadow-xs">

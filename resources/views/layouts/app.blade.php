@@ -75,47 +75,26 @@
         <div class="max-w-[1170px] mx-auto px-4 sm:px-8 xl:px-0">
 
             <!-- Top Bar -->
-            <div class="flex flex-col lg:flex-row gap-5 items-end lg:items-center xl:justify-between py-5">
+            <div class="flex items-center justify-between py-4">
 
-                <!-- Left: Logo & Search -->
-                <div class="xl:w-auto flex-col sm:flex-row w-full flex sm:justify-between sm:items-center gap-5 sm:gap-10">
-                    <a class="flex items-center gap-3 group flex-shrink-0" href="{{ route('home') }}">
-                        <img src="{{ asset('images/logo/bangla_puzzle_logo_4x.png') }}" alt="Bangla Puzzle" class="h-10 w-auto object-contain">
-                        <div class="flex flex-col">
-                            <span class="text-lg font-bold leading-tight tracking-tight">
-                                <span class="text-[#8F1E5F]">Bangla</span><span class="text-[#115C8F]">Puzzle</span>
-                            </span>
-                            <span class="text-[9px] font-semibold text-dark-4 tracking-wider uppercase">
-                                E-Commerce &bull; Limited
-                            </span>
-                        </div>
-                    </a>
-
-                    <!-- Search Input -->
-                    <div class="max-w-[420px] w-full">
-                        <form action="{{ route('home') }}" method="GET">
-                            <div class="flex items-center">
-                                <input type="text" name="search" value="{{ request('search') }}" placeholder="I am shopping for..." class="w-full bg-gray-1 border border-gray-3 rounded-l-[5px] py-2.5 px-4 text-xs text-dark placeholder:text-dark-4 focus:outline-none focus:border-blue">
-                                <button type="submit" class="bg-blue hover:bg-blue-dark text-white text-xs px-5 py-3 rounded-r-[5px] transition flex items-center justify-center">
-                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                                </button>
-                            </div>
-                        </form>
+                <!-- Left: Logo -->
+                <a class="flex items-center gap-3 group flex-shrink-0" href="{{ route('home') }}">
+                    <img src="{{ asset('images/logo/bangla_puzzle_logo_4x.png') }}" 
+                         alt="Bangla Puzzle" 
+                         onerror="this.src='{{ asset('images/logo/bangla_puzzle_logo.png') }}'"
+                         class="h-10 w-auto object-contain">
+                    <div class="flex flex-col">
+                        <span class="text-lg font-bold leading-tight tracking-tight">
+                            <span class="text-[#8F1E5F]">Bangla</span><span class="text-[#115C8F]">Puzzle</span>
+                        </span>
+                        <span class="text-[9px] font-semibold text-dark-4 tracking-wider uppercase">
+                            E-Commerce &bull; Limited
+                        </span>
                     </div>
-                </div>
+                </a>
 
-                <!-- Right: Support & Admin Portal Link -->
-                <div class="flex items-center gap-6">
-                    <div class="hidden sm:flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-gray-1 border border-gray-3 flex items-center justify-center text-blue">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
-                        </div>
-                        <div>
-                            <span class="block text-[10px] text-dark-4 uppercase tracking-wider font-semibold">24/7 SUPPORT</span>
-                            <span class="text-xs font-bold text-dark">+880 1894-438179</span>
-                        </div>
-                    </div>
-
+                <!-- Right: Admin Portal Link -->
+                <div class="flex items-center gap-4">
                     <a href="{{ route('admin.dashboard') }}" class="px-4 py-2 rounded-lg bg-dark hover:bg-blue text-white text-xs font-semibold shadow-xs transition flex items-center gap-2">
                         <span>Admin Portal</span>
                         <span>&rarr;</span>
@@ -128,15 +107,24 @@
         <!-- Sub Navbar -->
         <div class="border-t border-gray-3 bg-white">
             <div class="max-w-[1170px] mx-auto px-4 sm:px-8 xl:px-0">
-                <nav class="flex items-center gap-8 py-3 text-xs font-semibold text-dark">
-                    <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'text-blue' : 'hover:text-blue' }} transition">
+                <nav class="flex items-center gap-6 py-3 text-xs font-semibold text-dark overflow-x-auto no-scrollbar">
+                    <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'text-blue font-bold' : 'hover:text-blue' }} transition whitespace-nowrap">
                         Home
                     </a>
-                    <a href="{{ route('home') }}#products-section" class="hover:text-blue transition">
-                        Products by Subcategory
-                    </a>
-                    <a href="{{ route('home') }}#categories-section" class="hover:text-blue transition">
-                        Categories
+                    @if(isset($navCategories))
+                        @php
+                            $activeCategoryParam = request()->route('category');
+                            $activeCategorySlug = is_object($activeCategoryParam) ? $activeCategoryParam->slug : $activeCategoryParam;
+                        @endphp
+                        @foreach($navCategories as $navCat)
+                            <a href="{{ route('storefront.category', $navCat->slug) }}" 
+                               class="{{ ($activeCategorySlug === $navCat->slug) ? 'text-blue font-bold' : 'hover:text-blue' }} transition whitespace-nowrap">
+                                {{ $navCat->name }}
+                            </a>
+                        @endforeach
+                    @endif
+                    <a href="{{ route('home') }}#products-section" class="hover:text-blue transition whitespace-nowrap text-dark-4">
+                        All Products
                     </a>
                 </nav>
             </div>

@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Services\StorefrontService;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +21,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Share cached navigation categories with storefront layout
+        View::composer('layouts.app', function ($view) {
+            $view->with('navCategories', app(StorefrontService::class)->getNavigationCategories());
+        });
     }
 }
