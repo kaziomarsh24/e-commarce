@@ -9,12 +9,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use KaziOmar\AtomicCache\Traits\AutoClearsCache;
-use KaziOmar\SmartUpload\Traits\HasUploadPurge;
 
 #[Fillable(['category_id', 'name', 'slug', 'is_active'])]
 class Subcategory extends Model
 {
-    use HasFactory, SoftDeletes, HasUploadPurge;
+    use HasFactory, SoftDeletes;
     use AutoClearsCache; //clear cache automatically
 
     protected $casts = [
