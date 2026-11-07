@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreCategoryRequest;
+use App\Http\Requests\UpdateCategoryRequest;
 use App\Models\Category;
 use App\Services\Admin\CategoryService;
 use Illuminate\Http\Request;
@@ -27,23 +29,23 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.categories.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreCategoryRequest $request)
     {
-        //
-    }
+        $validated = $request->validated();
+        $this->categoryService->createCategory(
+            $validated,
+            $request->file('image')
+        );
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Category $category)
-    {
-        //
+        return redirect()
+            ->route('admin.categories.index')
+            ->with('success', 'Category created successfully.');
     }
 
     /**
@@ -51,15 +53,25 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return view('admin.categories.edit', compact('category'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Category $category)
+    public function update(UpdateCategoryRequest $request, Category $category)
     {
-        //
+        $validated = $request->validated();
+
+        $this->categoryService->updateCategory(
+            $category,
+            $validated,
+            $request->file('image')
+        );
+
+        return redirect()
+            ->route('admin.categories.index')
+            ->with('success', 'Category updated successfully.');
     }
 
     /**
@@ -67,6 +79,15 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        try {
+            $this->categoryService->deleteCategory($category);
+            return redirect()
+                ->route('admin.categories.index')
+                ->with('success', 'Category deleted successfully.');
+        } catch (\Throwable $e) {
+            return redirect()
+                ->route('admin.categories.index')
+                ->with('error', $e->getMessage());
+        }
     }
 }

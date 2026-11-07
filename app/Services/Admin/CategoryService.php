@@ -11,14 +11,13 @@ class CategoryService
 {
     use HasAtomicCache;
     /**
-     * Retrieve all categories.
+     * Retrieve all categories for admin listing (real-time, not cached).
      */
     public function getAllCategories()
     {
-        $callback = fn() => Category::withCount('products')
-                            ->where('is_active', true)
-                            ->get();
-        return $this->cache(__FUNCTION__,func_get_args(),$callback, ttl:3600);
+        return Category::withCount(['subcategories', 'products'])
+            ->latest()
+            ->paginate(15);
     }
     /**
      * Get category by slug.
