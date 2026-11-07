@@ -20,6 +20,8 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
+    Route::get('categories/{category}/subcategories', [AdminProductController::class, 'getSubcategories'])->name('categories.subcategories');
+
     Route::resource('categories', AdminCategoryController::class);
     Route::resource('subcategories', AdminSubcategoryController::class);
     Route::resource('products', AdminProductController::class);
