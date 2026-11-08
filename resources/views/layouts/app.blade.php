@@ -166,7 +166,7 @@
 
             <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-dark-4">
                 <p>&copy; {{ date('Y') }} Bangla Puzzle Limited. All rights reserved.</p>
-                <p>Crafted by <span class="font-semibold text-dark">Kazi Omar Faruk</span></p>
+                <p>Developed by <span class="font-semibold text-dark">Kazi Omar Faruk</span></p>
             </div>
         </div>
     </footer>

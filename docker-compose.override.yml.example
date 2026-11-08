@@ -1,0 +1,11 @@
+# Example Local Development Override
+# Copy this file to docker-compose.override.yml to customize local ports.
+
+services:
+  nginx:
+    ports: !override
+      - "8080:80"
+
+  db:
+    ports:
+      - "3307:3306"
