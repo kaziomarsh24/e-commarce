@@ -41,6 +41,6 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('storefront.index')->with('success', 'Logged out successfully.');
+        return redirect()->route('home')->with('success', 'Logged out successfully.');
     }
 }

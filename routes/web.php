@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 
 // ==================== STOREFRONT ROUTES ====================
 Route::get('/', [StorefrontController::class, 'index'])->name('home');
+Route::get('/storefront', [StorefrontController::class, 'index'])->name('storefront.index');
 Route::get('/category/{category:slug}', [StorefrontController::class, 'category'])->name('storefront.category');
 Route::get('/category/{category:slug}/{subcategory:slug}', [StorefrontController::class, 'category'])->name('storefront.subcategory');
 Route::get('/products/{product:slug}', [StorefrontController::class, 'product'])->name('storefront.product');
