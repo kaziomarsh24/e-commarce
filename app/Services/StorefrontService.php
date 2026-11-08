@@ -34,17 +34,35 @@ class StorefrontService
     public function getHeroAndDeals(): array
     {
         $callback = function () {
+            // Highest discounted active product takes the main Hero banner
             $hero = Product::active()
                 ->whereNotNull('old_price')
                 ->whereColumn('old_price', '>', 'new_price')
+                ->orderByRaw('((old_price - new_price) / old_price) DESC')
                 ->latest()
                 ->first() ?? Product::active()->latest()->first();
 
+            // The next top discounted products take the side promotional deal slots
             $deals = Product::active()
                 ->when($hero, fn($q) => $q->where('id', '!=', $hero->id))
+                ->whereNotNull('old_price')
+                ->whereColumn('old_price', '>', 'new_price')
+                ->orderByRaw('((old_price - new_price) / old_price) DESC')
                 ->latest()
                 ->take(2)
                 ->get();
+
+            // Fallback: fill remaining deal slots with latest products if not enough discounts exist
+            if ($deals->count() < 2) {
+                $needed = 2 - $deals->count();
+                $excludedIds = array_filter(array_merge([$hero?->id], $deals->pluck('id')->all()));
+                $fillers = Product::active()
+                    ->whereNotIn('id', $excludedIds)
+                    ->latest()
+                    ->take($needed)
+                    ->get();
+                $deals = $deals->concat($fillers);
+            }
 
             return [
                 'hero'  => $hero,

@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.44, for Linux (aarch64)
+-- MySQL dump 10.13  Distrib 9.5.0, for macos26.0 (arm64)
 --
--- Host: localhost    Database: ecommerce_db
+-- Host: 127.0.0.1    Database: ecommerce_db
 -- ------------------------------------------------------
--- Server version	8.0.44
+-- Server version	9.5.0
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -37,7 +37,6 @@ CREATE TABLE `cache` (
 
 LOCK TABLES `cache` WRITE;
 /*!40000 ALTER TABLE `cache` DISABLE KEYS */;
-INSERT INTO `cache` VALUES ('banglapuzzle-e-commerce-cache-atomic:__tag_v__:categories','s:36:\"0f38f697-405e-481e-8af9-6a42efcc9fd3\";',2109443465),('banglapuzzle-e-commerce-cache-atomic:__tag_v__:products','s:36:\"ab4ec4e9-a0c1-4986-83b8-44271710f115\";',2109443465),('banglapuzzle-e-commerce-cache-atomic:__tag_v__:subcategories','s:36:\"ffef5e57-b284-43c1-98e7-9d2efda1e2db\";',2109443465),('banglapuzzle-e-commerce-cache-atomic:storefront:getFeaturedCategories:vt:93cdf697c90ee54b27ded64ff5a1d8d5','a:2:{s:15:\"__ac_compressed\";b:0;s:4:\"data\";O:39:\"Illuminate\\Database\\Eloquent\\Collection\":2:{s:8:\"\0*\0items\";a:0:{}s:28:\"\0*\0escapeWhenCastingToString\";b:0;}}',1794087065),('banglapuzzle-e-commerce-cache-atomic:storefront:getHeroAndDeals:vt:43aaa5ccbdd4aa2c0a1cdd6d0918242b','a:2:{s:15:\"__ac_compressed\";b:0;s:4:\"data\";a:2:{s:4:\"hero\";N;s:5:\"deals\";O:39:\"Illuminate\\Database\\Eloquent\\Collection\":2:{s:8:\"\0*\0items\";a:0:{}s:28:\"\0*\0escapeWhenCastingToString\";b:0;}}}',1794085265),('banglapuzzle-e-commerce-cache-atomic:storefront:getLatestProducts:60fda3b54003017dc64a0c492471bbfe:vt:43aaa5ccbdd4aa2c0a1cdd6d0918242b','a:2:{s:15:\"__ac_compressed\";b:0;s:4:\"data\";O:39:\"Illuminate\\Database\\Eloquent\\Collection\":2:{s:8:\"\0*\0items\";a:0:{}s:28:\"\0*\0escapeWhenCastingToString\";b:0;}}',1794084365),('banglapuzzle-e-commerce-cache-atomic:storefront:getNavigationCategories:vt:3d1306a4e58f362f4954c241dd72d75c','a:2:{s:15:\"__ac_compressed\";b:0;s:4:\"data\";O:39:\"Illuminate\\Database\\Eloquent\\Collection\":2:{s:8:\"\0*\0items\";a:0:{}s:28:\"\0*\0escapeWhenCastingToString\";b:0;}}',1794169865);
 /*!40000 ALTER TABLE `cache` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -86,7 +85,7 @@ CREATE TABLE `categories` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `categories_name_unique` (`name`),
   UNIQUE KEY `categories_slug_unique` (`slug`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -95,6 +94,7 @@ CREATE TABLE `categories` (
 
 LOCK TABLES `categories` WRITE;
 /*!40000 ALTER TABLE `categories` DISABLE KEYS */;
+INSERT INTO `categories` VALUES (1,'Audio & Sound','audio-sound','categories/audio-sound-category_I1icfOVrktYq.webp',NULL,1,'2026-11-07 22:52:02','2026-11-07 22:52:02',NULL),(2,'Computers & Laptops','computers-laptops','categories/57c72db77b6edb365e88b8ade451eefc_xVLq1uOaM5Cc.webp',NULL,1,'2026-11-07 23:10:43','2026-11-07 23:10:43',NULL),(3,'Smartphones & Wearables','smartphones-wearables','categories/electronics-smartphones-wearables-1_g2ebB9QVOukt.webp',NULL,1,'2026-11-07 23:26:10','2026-11-07 23:26:10',NULL),(4,'Gaming Gear','gaming-gear','categories/force-1_oyayd49QP4Sr.webp',NULL,1,'2026-11-07 23:36:18','2026-11-07 23:36:18',NULL);
 /*!40000 ALTER TABLE `categories` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -265,7 +265,7 @@ CREATE TABLE `products` (
   KEY `products_subcategory_id_foreign` (`subcategory_id`),
   CONSTRAINT `products_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE,
   CONSTRAINT `products_subcategory_id_foreign` FOREIGN KEY (`subcategory_id`) REFERENCES `subcategories` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -274,6 +274,7 @@ CREATE TABLE `products` (
 
 LOCK TABLES `products` WRITE;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
+INSERT INTO `products` VALUES (1,1,2,'Sony WH-1000XM5 Wireless Headphones','sony-wh-1000xm5-wireless-headphones','Industry-leading noise canceling with two processors and 8 microphones. Up to 30-hour battery life with quick charging. Crystal clear hands-free calling with 4 beamforming microphones.','products/hero-01_AH5ZE6zEb81C.webp','[\"products/gallery/sony-headphones-gallery1_exY4rIczHneY.webp\", \"products/gallery/sony-headphones-gallery2_ivCpTOppd2Ny.webp\"]',38000.00,32500.00,1,'2026-11-07 22:55:20','2026-11-07 23:21:33',NULL),(2,1,1,'Apple AirPods Pro (2nd Gen)','apple-airpods-pro-2nd-gen','Up to 2x more Active Noise Cancellation. Transparency mode lets you hear the world around you. Personalized Spatial Audio with dynamic head tracking places sound all around you.','products/111851-sp880-airpods-pro-2nd-gen_wf94WhvSqDMd.webp','[\"products/gallery/airpods-earbuds-gallery1_XDwMwB07uCO8.webp\", \"products/gallery/airpods-earbuds-main_ZwYr5TCrsEBI.webp\"]',28500.00,22999.00,1,'2026-11-07 22:59:02','2026-11-07 23:21:24',NULL),(3,1,3,'JBL Charge 5 Portable Bluetooth Speaker','jbl-charge-5-portable-bluetooth-speaker','Take the party with you no matter what the weather. The JBL Charge 5 speaker delivers bold JBL Original Pro Sound, with an optimized long excursion driver and dual bass radiators.','products/jbl-charge5-hero-blue-01_SgAsFD6QLZEQ.webp','[\"products/gallery/jbl-charge5-front-red-0080-x2_UC0Kxuhh3zpm.webp\", \"products/gallery/jbl-charge5-hero-red-0029-x2_485Q7YA377C0.webp\"]',17500.00,15200.00,1,'2026-11-07 23:04:37','2026-11-07 23:04:37',NULL),(4,2,4,'Apple MacBook Air M3 (13-inch)','apple-macbook-air-m3-13-inch','Strikingly thin and fast MacBook Air with M3 chip. Delivers up to 18 hours of battery life and a stunning Liquid Retina display with 500 nits of brightness.','products/m3-macbook-air-13-inch-pp-header_fMkTcmVW3Iz6.webp','[\"products/gallery/macbook-air_hhl2MKsTWlA9.webp\"]',145000.00,132000.00,1,'2026-11-07 23:16:27','2026-11-07 23:16:27',NULL),(5,2,5,'Keychron K2 Wireless Mechanical Keyboard','keychron-k2-wireless-mechanical-keyboard','75% layout compact Bluetooth wireless mechanical keyboard designed for Mac and Windows. Features hot-swappable Gateron G Pro mechanical switches with RGB backlight.','products/keychron-k2-wireless-mechanical-keyboard-for-mac-windows-ios-gateron-switch-brown-with-type-c-rgb-white-backlight-53059406-af50-40d8-8566-c3b5f1e85a62_mkspdNGWvq2N.webp','[\"products/gallery/keychron-k2-wireless-mechanical-keyboard-for-mac-windows-ios-gateron-switch-red-with-type-c-rgb-white-backlight-9cb9d3e6-a5ac-4ac5-becb-079c7103ed2f_4x1ABmqrGyTp.webp\", \"products/gallery/keychron-k2-wireless-mechanical-keyboard-for-mac-windows-ios-gateron-switch-red-with-type-c-rgb-white-backlight-exclusive-color_U12YFszLP1mh.webp\"]',9500.00,8200.00,1,'2026-11-07 23:19:52','2026-11-07 23:19:52',NULL),(6,2,6,'Logitech MX Master 3S Wireless Mouse','logitech-mx-master-3s-wireless-mouse','Master series precision mouse with Quiet Clicks and an 8000 DPI track-on-glass sensor. MagSpeed electromagnetic scrolling for remarkable speed and precision.','products/mx-master-3s-bluetooth-edition-top-view-black-new-1_9Wx05T8jh22w.webp','[\"products/gallery/mx-master-3s-bluetooth-edition-rear-view-black-new-7_rblovOF0SBK3.webp\", \"products/gallery/mx-master-3s-bluetooth-edition-left-profile-view-black-new-4_adpjrxgLso77.webp\"]',12500.00,10999.00,1,'2026-11-07 23:23:59','2026-11-07 23:23:59',NULL),(7,3,7,'Samsung Galaxy S24 Ultra','samsung-galaxy-s24-ultra','Meet Galaxy S24 Ultra with Galaxy AI, a durable titanium frame, 200MP camera, and built-in S Pen. Powered by Snapdragon 8 Gen 3 for Galaxy.','products/samsung-galaxy-s24-ultra-price-in-bangladesh-titanium-orange_YPXfOFlWggwP.webp','[\"products/gallery/samsung-galaxy-s24-ultra-price-in-bangladesh-titanium-green_de7UdmDTPxAf.webp\", \"products/gallery/samsung-galaxy-s24-ultra-price-in-bangladesh-titanium-blue_035a6P3h6GGN.webp\"]',165000.00,148000.00,1,'2026-11-07 23:30:18','2026-11-07 23:30:18',NULL),(8,3,7,'Phone 18 Pro Max','phone-18-pro-max','The iPhone 18 Pro Max display has rounded corners that follow a beautiful curved design, and these corners are within a standard rectangle. When measured as a standard rectangular shape, the screen is 6.86 inches diagonally (actual viewable area is less).','products/iphone-18-pro-max_VAZWosXyt1tf.webp','[\"products/gallery/apple-iphone-18-pro-max-full-display-side-image_4m6p77bq1sfj.webp\", \"products/gallery/apple-iphone-18-pro-max-burgundy-official-color-image_OvpKrVxFiL0o.webp\"]',306000.00,239999.00,1,'2026-11-07 23:34:14','2026-11-07 23:34:14',NULL);
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -303,7 +304,6 @@ CREATE TABLE `sessions` (
 
 LOCK TABLES `sessions` WRITE;
 /*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
-INSERT INTO `sessions` VALUES ('sTKN1UhXDBAbgmhzLAoNhQEMVRgtqHHw5dsEb9Cv',NULL,'192.168.147.1','curl/8.7.1','eyJfdG9rZW4iOiJnS0F1WHR4YVd1Z0luQ1FnQnVjOWt6OXpqemRmNXB4Z2ExTnRucHRqIiwiX2ZsYXNoIjp7Im9sZCI6W10sIm5ldyI6W119fQ==',1794083465);
 /*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -327,7 +327,7 @@ CREATE TABLE `subcategories` (
   UNIQUE KEY `subcategories_slug_unique` (`slug`),
   KEY `subcategories_category_id_foreign` (`category_id`),
   CONSTRAINT `subcategories_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -336,6 +336,7 @@ CREATE TABLE `subcategories` (
 
 LOCK TABLES `subcategories` WRITE;
 /*!40000 ALTER TABLE `subcategories` DISABLE KEYS */;
+INSERT INTO `subcategories` VALUES (1,1,'Wireless Earbuds','wireless-earbuds',1,'2026-11-07 22:52:32','2026-11-07 22:52:32',NULL),(2,1,'Over-Ear Headphones','over-ear-headphones',1,'2026-11-07 22:52:54','2026-11-07 22:52:54',NULL),(3,1,'Bluetooth Speakers','bluetooth-speakers',1,'2026-11-07 22:53:06','2026-11-07 22:53:06',NULL),(4,2,'Gaming Laptops','gaming-laptops',1,'2026-11-07 23:11:44','2026-11-07 23:11:44',NULL),(5,2,'Mechanical Keyboards','mechanical-keyboards',1,'2026-11-07 23:11:53','2026-11-07 23:11:53',NULL),(6,2,'Ergonomic Mice','ergonomic-mice',1,'2026-11-07 23:12:04','2026-11-07 23:12:04',NULL),(7,3,'Flagship Phones','flagship-phones',1,'2026-11-07 23:26:43','2026-11-07 23:26:43',NULL),(8,3,'Smart Watches','smart-watches',1,'2026-11-07 23:27:00','2026-11-07 23:27:00',NULL),(9,3,'Power Banks & Chargers','power-banks-chargers',1,'2026-11-07 23:27:16','2026-11-07 23:27:16',NULL),(10,4,'Gaming Controllers','gaming-controllers',1,'2026-11-07 23:36:36','2026-11-07 23:36:36',NULL),(11,4,'Streaming Microphones','streaming-microphones',1,'2026-11-07 23:36:49','2026-11-07 23:36:49',NULL),(12,4,'Gaming Headsets','gaming-headsets',1,'2026-11-07 23:37:15','2026-11-07 23:37:15',NULL);
 /*!40000 ALTER TABLE `subcategories` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -366,7 +367,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Kazi Omar Faruk','admin@banglapuzzle.com',NULL,'$2y$12$gXMjUBvnpp.VKcCGVoGj7ORpApv7vKY2vcJjHiM8b3mcTbn/e.aFC',NULL,'2026-11-07 20:30:56','2026-11-07 20:30:56');
+INSERT INTO `users` VALUES (1,'Kazi Omar Faruk','admin@banglapuzzle.com',NULL,'$2y$12$LdPas7KsmDPQlkqb1zNsMuHvXil2LYA2u3Du1uU9BQ84OaQfdxFki',NULL,'2026-11-07 22:44:28','2026-11-07 22:44:28');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -379,4 +380,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-11-07 20:31:28
+-- Dump completed on 2026-11-08 11:42:24
