@@ -34,7 +34,11 @@ php artisan serve
 ### Option B: Docker Setup
 
 ```bash
-# 1. In .env, set APP_URL and DB credentials:
+# 1. Setup local environment & docker override
+cp .env.example .env
+cp docker-compose.override.yml.example docker-compose.override.yml
+
+# In .env, set APP_URL and DB credentials:
 APP_URL=http://localhost:8080
 DB_CONNECTION=mysql
 DB_HOST=db
