@@ -51,7 +51,7 @@ DB_PASSWORD=secret
 docker compose up -d --build
 ```
 
-*(Local development uses `docker-compose.override.yml` to route port `8080:80` and mount `docker/nginx/default.conf` for pure HTTP. Containers automatically wait for MySQL, import database data, run migrations, and link storage).*
+*(Local development uses `docker-compose.override.yml` to route port `8080:80` and mount `docker/nginx/default.conf` for pure HTTP. Containers automatically generate `APP_KEY` if missing, wait for MySQL, import database data, run migrations, and link storage).*
 
 - **Storefront:** [http://localhost:8080](http://localhost:8080)
 - **Admin Portal:** [http://localhost:8080/admin](http://localhost:8080/admin)

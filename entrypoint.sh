@@ -13,6 +13,17 @@ if [ "$DB_CONNECTION" != "sqlite" ]; then
     echo "Database connected successfully!"
 fi
 
+# Ensure .env exists and has an encryption key
+if [ ! -f /var/www/.env ]; then
+    echo ".env not found. Copying from .env.example..."
+    cp /var/www/.env.example /var/www/.env
+fi
+
+if ! grep -q "^APP_KEY=base64:" /var/www/.env 2>/dev/null; then
+    echo "APP_KEY is missing or empty. Generating application key..."
+    php artisan key:generate --force || true
+fi
+
 # Ensure storage directories & permissions
 mkdir -p /var/www/storage/framework/cache/data \
          /var/www/storage/framework/sessions \
