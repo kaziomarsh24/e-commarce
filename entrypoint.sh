@@ -1,6 +1,12 @@
 #!/bin/sh
 set -e
 
+# Auto-install composer dependencies if vendor is missing
+if [ ! -f /var/www/vendor/autoload.php ]; then
+    echo "vendor directory missing. Installing composer dependencies..."
+    composer install --no-interaction --prefer-dist --optimize-autoloader
+fi
+
 # Wait for database
 DB_HOST_CHECK=${DB_HOST:-db}
 DB_PORT_CHECK=${DB_PORT:-3306}
