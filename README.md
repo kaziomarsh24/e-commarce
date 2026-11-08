@@ -4,6 +4,14 @@ Full-stack e-commerce application built with **Laravel 13** and **PHP 8.5** for 
 
 ---
 
+## Live Demo
+- **Storefront:** [https://shop.snapclip.tech](https://shop.snapclip.tech)
+- **Admin Portal:** [https://shop.snapclip.tech/admin](https://shop.snapclip.tech/admin)
+- **Admin Email:** `admin@banglapuzzle.com`
+- **Admin Password:** `password`
+
+---
+
 ## Quick Start
 
 ### Option A: Local Setup
@@ -109,7 +117,8 @@ A pre-seeded database SQL dump is included in the project root as `database_expo
 - Responsive Blade components for storefront and admin layouts.
 
 ### 5. Dynamic Hero Banner & Deals
-- The homepage banner and top deal cards dynamically fetch discounted products directly from the database without requiring extra tables.
+- The homepage primary hero banner automatically displays the active product with the highest discount percentage calculated via database query ordering.
+- Side promotional deal cards feature the next top-discounted products, with automatic fallback to latest active items.
 
 ### 6. Safe Deletions
 - Categories and subcategories that have linked products cannot be deleted to prevent orphaned data.
@@ -167,7 +176,8 @@ docker compose up -d --build
 ### 3. Issue Trusted SSL Certificate (One-Time Command)
 Once your domain DNS points to your server IP, obtain your Let's Encrypt SSL certificate:
 ```bash
-docker compose run --rm certbot certonly \
+# 1. Request SSL certificate via Certbot ACME challenge
+docker compose run --rm --entrypoint certbot certbot certonly \
   --webroot \
   --webroot-path=/var/www/certbot \
   -d yourdomain.com \
@@ -176,8 +186,12 @@ docker compose run --rm certbot certonly \
   --agree-tos \
   --no-eff-email
 
-# Reload Nginx to activate trusted SSL
-docker compose exec nginx nginx -s reload
+# 2. Update Nginx configuration with domain certificate paths
+sed -i 's|/etc/letsencrypt/live/fullchain.pem|/etc/letsencrypt/live/yourdomain.com/fullchain.pem|g' docker/nginx/production.conf
+sed -i 's|/etc/letsencrypt/live/privkey.pem|/etc/letsencrypt/live/yourdomain.com/privkey.pem|g' docker/nginx/production.conf
+
+# 3. Restart Nginx to activate trusted SSL
+docker compose restart nginx
 ```
 
 *(The included `certbot` container automatically handles certificate renewals every 12 hours).*
