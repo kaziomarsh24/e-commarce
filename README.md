@@ -31,7 +31,7 @@ php artisan serve
 
 ---
 
-### Option B: Docker Setup
+### Option B: Docker Setup (Local Development)
 
 ```bash
 # 1. Setup local environment & docker override
@@ -51,7 +51,7 @@ DB_PASSWORD=secret
 docker compose up -d --build
 ```
 
-*(Containers automatically run migrations, seeders, and storage link on boot).*
+*(Local development uses `docker-compose.override.yml` to route port `8080:80` and mount `docker/nginx/default.conf` for pure HTTP. Containers automatically wait for MySQL, import database data, run migrations, and link storage).*
 
 - **Storefront:** [http://localhost:8080](http://localhost:8080)
 - **Admin Portal:** [http://localhost:8080/admin](http://localhost:8080/admin)
@@ -143,8 +143,12 @@ Two open-source packages I built (`thekaziomar/*`) are integrated into this proj
 
 The project is pre-configured for direct VPS deployment with automated Docker orchestration, Nginx reverse proxy, and Let's Encrypt SSL.
 
+### Architecture Overview
+- **Production (`docker-compose.yml`):** Base compose file mounts `docker/nginx/production.conf`, listening on port 80 (HTTP redirect + ACME challenge) and port 443 (HTTP/2 SSL). Pre-provisioned fallback certificates in `docker/certbot/conf/live/` guarantee Nginx boots immediately on brand-new servers without missing-certificate crashes.
+- **Local Development (`docker-compose.override.yml`):** Automatically applied locally to mount `docker/nginx/default.conf` and map port `8080:80` without HTTPS overhead.
+
 ### 1. Configure Domain & Environment
-On your production server, set your domain in `.env` and `docker/nginx/production.conf`:
+On your production server:
 - `.env`:
   ```env
   APP_ENV=production
@@ -160,8 +164,8 @@ docker compose up -d --build
 ```
 *(The container entrypoint automatically waits for MySQL, imports/migrates the database, links storage, and caches configurations).*
 
-### 3. Issue Free SSL Certificate (One-Time Command)
-Once your domain DNS points to the server IP, run:
+### 3. Issue Trusted SSL Certificate (One-Time Command)
+Once your domain DNS points to your server IP, obtain your Let's Encrypt SSL certificate:
 ```bash
 docker compose run --rm certbot certonly \
   --webroot \
@@ -172,7 +176,7 @@ docker compose run --rm certbot certonly \
   --agree-tos \
   --no-eff-email
 
-# Reload Nginx to activate SSL
+# Reload Nginx to activate trusted SSL
 docker compose exec nginx nginx -s reload
 ```
 
